@@ -1,17 +1,19 @@
-import pathlib
+import os
+import glob
 import shutil
-import datetime
 
-#今日の日付
-yyyymmdd = datetime.date.today().strftime('%Y%m%d')
-#移動元フォルダから条件に一致するファイル名を取得
-#リストで受け取りたいのでキャストする
-p_tmp = list(pathlib.Path('移動元フォルダ').glob(f'{yyyymmdd}*.csv'))
-'''リスト化するところを ↑ に修正
-p_tmp = pathlib.Path('移動元フォルダ').glob(f'{yyyymmdd}*.csv')
-p = [p for p in p_tmp]
-''' 
-dest = '移動先フォルダ'
-#ファイル移動
-for source in p_tmp:
-    shutil.move(str(source), dest) 
+def file_move(move_path):
+  for x in glob.iglob('C:\\移動元パス\\**', recursive=True):
+    for y in glob.iglob(move_path+'**', recursive=True):
+      if os.path.isfile(x) and x[x.rfind('\\')+1:x.rfind(' 第')] == y[y.rfind('\\')+1:y.rfind(' 第')]:
+        shutil.move(x, move_path+x[x.rfind('\\')+1:])
+        print(x, 'を 【', move_path, '】へ移動しました')
+
+file_move('C:\\移動先パス1\\')
+file_move('C:\\移動先パス2\\')
+
+input(
+'''
+Enterキーを押してください
+'''
+)
