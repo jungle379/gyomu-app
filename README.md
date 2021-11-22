@@ -21,10 +21,10 @@ import glob
 # "false"')
 # args = parser.parse_args()
 
-# pandasにてcsvファイルからFAX番号を抽出
+# pandasにてエクセルファイルからFAX番号を抽出
 df = pd.read_csv('C:/Users/OSAKACL27/Desktop/before/sample.csv', sep=',')
-df.head(3)
-print(df.head(3))
+df.head()
+print(df.head())
 
 # pathlibにてサーバ上のPDFファイルのファイル名を抽出
 p_temp = pathlib.Path('C:/Users/OSAKACL27/Desktop/before').glob('*pdf')
@@ -32,6 +32,10 @@ for p in p_temp:
     print(p.name)
 
 # 上記で抽出したデータを比較し、合致したデータのみをリネームする
+if df == p_temp:
+    for f in files:
+     os.rename(f, os.path.join(path, '森野_' + os.path.basename(f)))
+else :print(df.head)
 
 
 # 条件分岐
