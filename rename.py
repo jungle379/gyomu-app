@@ -25,7 +25,7 @@ df.head()
 print(df.head())
 
 # pathlibにてサーバ上のPDFファイルのファイル名を抽出
-p_temp = pathlib.Path('C:/Users/OSAKACL27/Desktop/before').glob('*pdf')
+p_temp = pathlib.Path('C:/Users/OSAKACL27/Desktop/before').glob('*.pdf')
 for p in p_temp:
     print(p.name)
 
