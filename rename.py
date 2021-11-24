@@ -19,7 +19,7 @@ import glob
 # "false"')
 # args = parser.parse_args()
 
-# pandasにてエクセルファイルからFAX番号を抽出
+# pandasにてCSVファイルからFAX番号を抽出
 df = pd.read_csv('C:/Users/OSAKACL27/Desktop/before/sample.csv', sep=',')
 df.head()
 print(df.head())
@@ -30,10 +30,14 @@ for p in p_temp:
     print(p.name)
 
 # 上記で抽出したデータを比較し、合致したデータのみをリネームする
-if df == p_temp:
-    for f in files:
-     os.rename(f, os.path.join(path, '森野_' + os.path.basename(f)))
-else :print(df.head)
+if df in [p_temp]:
+    print("true")
+else:
+    print("false")
+#     for f in files:
+#      os.rename(f, os.path.join(path, '森野_' + os.path.basename(f)))
+# else :
+#     print(df.head)
 
 
 # 条件分岐
@@ -53,7 +57,7 @@ else :print(df.head)
 #     the files (otherwise, it will only create a log of the expected file name \
 #     changes): ')
 
-# # ログ採取
+# ログ採取
 # startTime = time.time()
 # f = csv.writer(open('renameLog' + datetime.now().strftime('%Y-%m-%d %H.%M.%S')
 #                + '.csv', 'w'))
