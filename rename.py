@@ -30,10 +30,10 @@ for p in p_temp:
     print(p.name)
 
 # 上記で抽出したデータを比較し、合致したデータのみをリネームする
-if df in [p_temp]:
-    print("true")
-else:
-    print("false")
+# if df in [p_temp]:
+#     print("true")
+# else:
+#     print("false")
 #     for f in files:
 #      os.rename(f, os.path.join(path, '森野_' + os.path.basename(f)))
 # else :
