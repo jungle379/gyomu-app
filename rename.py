@@ -6,6 +6,7 @@ import argparse
 import pandas as pd
 import pathlib
 import glob
+from janome.tokenizer import Tokenizer
 
 # 引数の定義
 # parser = argparse.ArgumentParser()
@@ -21,14 +22,31 @@ import glob
 
 # pandasにてCSVファイルからFAX番号を抽出
 df = pd.read_csv('C:/Users/OSAKACL27/Desktop/before/sample.csv', sep=',')
-df.head()
-print(df.head())
+list_sample = df['tel'].to_list()
+print(list_sample)
+# df.head()
+# print(df.head())
+
+# os.listdirにてフォルダ内部のファイル名を抽出
+path = "../before"
+files = os.listdir(path)
+print(files)
+
+if list_sample in files:
+    print('true')
+else:
+    print('false')
 
 # pathlibにてサーバ上のPDFファイルのファイル名を抽出
-p_temp = pathlib.Path('C:/Users/OSAKACL27/Desktop/before').glob('*.pdf')
-for p in p_temp:
-    print(p.name)
-
+# p_temp = os.path('C:/Users/OSAKACL27/Desktop/before').glob('*')
+# for p in p_temp:
+#     print(p.name)
+# t = Tokenizer()
+# for file in files:
+#  for files in t.tokenize(file):
+#      file.append(file.surface)
+#      print(files)
+    
 # 上記で抽出したデータを比較し、合致したデータのみをリネームする
 # if df in [p_temp]:
 #     print("true")
