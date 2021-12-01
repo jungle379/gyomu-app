@@ -8,45 +8,22 @@ import pathlib
 import glob
 from janome.tokenizer import Tokenizer
 
-# 引数の定義
-# parser = argparse.ArgumentParser()
-# parser.add_argument('-d', '--directory', help='the directory of the files to \
-# be renamed. optional - if not provided, the script will ask for input')
-# parser.add_argument('-f', '--fileNameCSV', help='the CSV file of name changes. \
-# optional - if not provided, the script will ask for input')
-# parser.add_argument('-m', '--makeChanges', help='Enter "true" to if the script \
-# should actually rename the files (otherwise, it will only create a log of the \
-# expected file name changes). optional - if not provided, the script will to \
-# "false"')
-# args = parser.parse_args()
-
 # pandasにてCSVファイルからFAX番号を抽出
 df = pd.read_csv('C:/Users/OSAKACL27/Desktop/before/sample.csv', sep=',')
-list_sample = df['tel'].to_list()
+list_sample = df['FAX'].to_list()
 print(list_sample)
-# df.head()
-# print(df.head())
 
-# os.listdirにてフォルダ内部のファイル名を抽出
-path = "../before"
-files = os.listdir(path)
-print(files)
+# glob.globで指定のフォルダ内のファイル名を抽出、basenameにて拡張子を外す
+for f in glob.glob('C:/Users/OSAKACL27/Desktop/before/*pdf'):
+    basename_without_ext = os.path.splitext(os.path.basename(f))[0]
+    print(basename_without_ext)
 
-if list_sample in files:
+# if A in B にてB内にAが含まれているか確認
+if basename_without_ext in list_sample:
     print('true')
 else:
     print('false')
-
-# pathlibにてサーバ上のPDFファイルのファイル名を抽出
-# p_temp = os.path('C:/Users/OSAKACL27/Desktop/before').glob('*')
-# for p in p_temp:
-#     print(p.name)
-# t = Tokenizer()
-# for file in files:
-#  for files in t.tokenize(file):
-#      file.append(file.surface)
-#      print(files)
-    
+  
 # 上記で抽出したデータを比較し、合致したデータのみをリネームする
 # if df in [p_temp]:
 #     print("true")
