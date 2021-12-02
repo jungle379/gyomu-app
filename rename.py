@@ -14,28 +14,19 @@ list_sample = df['FAX'].to_list()
 print(list_sample)
 
 # glob.globで指定のフォルダ内のファイル名を抽出、basenameにて拡張子を外す
-for f in glob.glob('C:/Users/OSAKACL27/Desktop/before/*pdf'):
+for f in glob.glob('C:/Users/OSAKACL27/Desktop/before/*.pdf'):
     basename_without_ext = os.path.splitext(os.path.basename(f))[0]
-    print(basename_without_ext)
+    print(basename_without_ext[0:10])
 
-# if A in B にてB内にAが含まれているか確認
-if basename_without_ext in list_sample:
+# if A in B にてB内にAが含まれているか確認。合致したものについては担当の名前を追記
+# 変数後の[]にて、FAX番号のみ文字列にて抽出
+if basename_without_ext[0:10] in list_sample:
     print('true')
+    path = 'C:/Users/OSAKACL27/Desktop/before'
+    os.rename(f,os.path.join(path,basename_without_ext + "_森野.pdf"))
 else:
-    print('false')
+    print('一覧とFAX番号が一致しませんでした。')
   
-# 上記で抽出したデータを比較し、合致したデータのみをリネームする
-# if df in [p_temp]:
-#     print("true")
-# else:
-#     print("false")
-#     for f in files:
-#      os.rename(f, os.path.join(path, '森野_' + os.path.basename(f)))
-# else :
-#     print(df.head)
-
-
-# 条件分岐
 # if args.directory:
 #     directory = args.directory
 # else:
