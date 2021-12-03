@@ -18,7 +18,7 @@ for f in glob.glob('C:/Users/OSAKACL27/Desktop/before/*.pdf'):
     basename_without_ext = os.path.splitext(os.path.basename(f))[0]
     print(basename_without_ext[0:10])
 
-# if A in B にてB内にAが含まれているか確認。合致したものについては担当の名前を追記
+# if A in B にてB内にAが含まれているか確認。合致したものについては後方に名前を追記
 # 変数後の[]にて、FAX番号のみ文字列にて抽出
 if basename_without_ext[0:10] in list_sample:
     print('true')
