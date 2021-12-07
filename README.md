@@ -28,6 +28,6 @@ for f in glob.glob('C:/Users/OSAKACL27/Desktop/before/*.pdf'):
 # 変数後の[]にて、FAX番号のみ文字列にて抽出
 # if basename_without_ext[0:10] in list_sample:
 #     print('true')
-# os.rename(f,os.path.join(path,basename_without_ext + "_森野.pdf"))
+# os.rename(f,os.path.join(path,basename_without_ext + "_山田.pdf"))
 # else:
 #     print('一覧とFAX番号が一致しませんでした。')
