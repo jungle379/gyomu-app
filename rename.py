@@ -13,7 +13,7 @@ for f in glob.glob('C:/Users/OSAKACL27/Desktop/before/*.pdf'):
     b = basename_without_ext[0:10]
     l = list_sample
 
-    l_even = [s for s in l if s.startswith(b)]
+l_even = [s for s in l if s.startswith(b)]
 
 
 # if A in B にてB内にAが含まれているか確認。合致したものについては担当の名前を追記
