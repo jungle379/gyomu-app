@@ -3,53 +3,62 @@
 - 用途  
   1.既存のファイル名をリネームする。  
   2.リネームしたファイルを所定のフォルダに移動させる。
-# import os
-# import glob
-# import shutil
+import os
+import pandas as pd
+import glob
+import schedule
+from time import sleep
+from datetime import datetime,date
+import shutil
 
-# def file_move(move_path):
-#   # ()内で\\**の手前までを変える(絶対パス)
-#   for x in glob.iglob('C:\\Users\\OSAKACL27\\Desktop\\before\\**', recursive=True):
-#     for y in glob.iglob(move_path+'**', recursive=True):
-#       # rfind('')内を移動させるファイル名に変更する
-#       if os.path.isfile(x) and x[x.rfind('\\')+1:x.rfind('')] == y[y.rfind('\\')+1:y.rfind('')]:
-#         shutil.move(x, move_path+x[x.rfind('\\')+1:])
-#         print(x, 'を 【', move_path, '】へ移動しました')
+# ここから実行内容
 
-# # ()内のパスを変更する(絶対パス)
-# file_move('C:\\Users\\OSAKACL27\\Desktop\\after\\')
+def task():
+    # pandasにてCSVファイルからFAX番号を抽出
+    df = pd.read_csv('//LANDISK-A52D12/share/scanfile/before/sample.csv', sep=',', dtype=object)
+    list_sample = df['FAX'].to_list()
+    print(list_sample)
 
+    # glob.globで指定のフォルダ内のファイル名を抽出、basenameにて拡張子を外す
+    for f in glob.glob('//LANDISK-A52D12/share/scanfile/before/*.pdf'):
+        # 拡張子の切り取り
+        basename_without_ext = os.path.splitext(os.path.basename(f))[0]
+        b = basename_without_ext[0:10]
 
-# def file_move2(move_path2):
-#   for x in glob.iglob('C:\\Users\\OSAKACL27\\Desktop\\hoge\\**', recursive=True):
-#     for y in glob.iglob(move_path2+'**', recursive=True):
-#       if os.path.isfile(x) and x[x.rfind('\\')+1:x.rfind('例題')] == y[y.rfind('\\')+1:y.rfind('例題')]:
-#         shutil.move(x, move_path2+x[x.rfind('\\')+1:])
-#         print(x, 'を 【', move_path2, '】へ移動しました')
+        # if A in B にてB内にAが含まれているか確認。合致したものについては担当の名前を追記
+        # 変数後の[]にて、FAX番号のみ文字列にて抽出
+        if b in list_sample:
+            print('true')
+            path = '//LANDISK-A52D12/share/scanfile/before/'
+            os.rename(f,os.path.join(path,"中村_" + basename_without_ext + ".pdf" ))
+        else:
+            print('一覧とFAX番号が一致しませんでした。')
 
-# file_move2('C:\\Users\\OSAKACL27\\Desktop\\huga\\')
+    # 「名前_」を抽出してフォルダ間を移動させる
+    directory_pdf = "//LANDISK-A52D12/share/scanfile/before/中村_*.pdf"
+    for path in glob.glob(directory_pdf):
+        print( path )
+        
+    sourcepath='//LANDISK-A52D12/share/scanfile/before/'
+    source = os.listdir('//LANDISK-A52D12/share/scanfile/before/')
+    destinationpath = '//LANDISK-A52D12/share/scanfile/after/'
+    for files in source:
+        if files.startswith('中村_'):
+            shutil.move(os.path.join(sourcepath,files), os.path.join(destinationpath,files))
 
+# ここまで自動で起動する内容
 
-import shutil, glob, os
+# 周期の設定値
+schedule.every(30).seconds.do(task)
 
-#Prints all text files in directory
-directory_pdf = "//LANDISK-A52D12/share/scanfile/before/山田_*.pdf"
-for path in glob.glob(directory_pdf):
-    print( path )
-    
-sourcepath='//LANDISK-A52D12/share/scanfile/before/'
-source = os.listdir('//LANDISK-A52D12/share/scanfile/before/')
-destinationpath = '//LANDISK-A52D12/share/scanfile/after/'
-for files in source:
-    if files.startswith('山田_'):
-        shutil.move(os.path.join(sourcepath,files), os.path.join(destinationpath,files))
-    # else:
-    #     print('No files with .txt extension to move!')
+year = date.today().year
+month = date.today().month
+hour = 19
+minute = 0
+second = 0
+set_until_time = datetime(year,month,date.today().day,hour,minute,second)
 
+while datetime.now() < set_until_time:
+    schedule.run_pending()
+    sleep(1)
 
-
-input(
-'''
-データの移動が完了しました。Enterキーを押してください
-'''
-)
