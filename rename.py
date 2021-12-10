@@ -25,12 +25,12 @@ def task():
         if b in list_sample:
             print('true')
             path = '//LANDISK-A52D12/share/scanfile/before/'
-            os.rename(f,os.path.join(path,"中村_" + basename_without_ext + ".pdf" ))
+            os.rename(f,os.path.join(path,"山田_" + basename_without_ext + ".pdf" ))
         else:
             print('一覧とFAX番号が一致しませんでした。')
 
     # 「名前_」を抽出してフォルダ間を移動させる
-    directory_pdf = "//LANDISK-A52D12/share/scanfile/before/中村_*.pdf"
+    directory_pdf = "//LANDISK-A52D12/share/scanfile/before/山田_*.pdf"
     for path in glob.glob(directory_pdf):
         print( path )
         
@@ -38,7 +38,7 @@ def task():
     source = os.listdir('//LANDISK-A52D12/share/scanfile/before/')
     destinationpath = '//LANDISK-A52D12/share/scanfile/after/'
     for files in source:
-        if files.startswith('中村_'):
+        if files.startswith('山田_'):
             shutil.move(os.path.join(sourcepath,files), os.path.join(destinationpath,files))
 
 # ここまで自動で起動する内容
