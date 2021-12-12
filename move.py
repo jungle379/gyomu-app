@@ -12,7 +12,7 @@ def task():
     # pandasにてCSVファイルからFAX番号を抽出
     df = pd.read_csv('//LANDISK-A52D12/share/scanfile/before/sample.csv', sep=',', dtype=object)
     list_sample = df['FAX'].to_list()
-    print(list_sample)
+    # print(list_sample)
 
     # glob.globで指定のフォルダ内のファイル名を抽出、basenameにて拡張子を外す
     for f in glob.glob('//LANDISK-A52D12/share/scanfile/before/*.pdf'):
@@ -37,6 +37,7 @@ def task():
     sourcepath='//LANDISK-A52D12/share/scanfile/before/'
     source = os.listdir('//LANDISK-A52D12/share/scanfile/before/')
     destinationpath = '//LANDISK-A52D12/share/scanfile/after/'
+    
     for files in source:
         if files.startswith('山田_'):
             shutil.move(os.path.join(sourcepath,files), os.path.join(destinationpath,files))
